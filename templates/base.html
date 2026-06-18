@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1024" />
+  <title>{% block title %}Flow{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand">
+        <h1>Flow</h1>
+        <p class="subtitle">Everything Flows</p>
+      </a>
+      <nav class="nav">
+        <a href="/" class="nav-link {% if active == 'home' %}active{% endif %}">今日</a>
+        <a href="/history" class="nav-link {% if active == 'history' %}active{% endif %}">历史</a>
+        <a href="/dashboard" class="nav-link {% if active == 'dashboard' %}active{% endif %}">图表</a>
+      </nav>
+    </div>
+    {% if current_user %}
+    <div class="container user-bar">
+      <span class="welcome-text">Welcome, {{ current_user.username }}</span>
+      <a href="/logout" class="nav-link logout-link">退出登录</a>
+    </div>
+    {% endif %}
+  </header>
+
+  <main class="container main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/static/js/common.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

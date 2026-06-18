@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1024" />
+  <title>{% block title %}Flow{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body class="auth-body">
+  <main class="auth-container">
+    <a href="/login" class="brand auth-brand">
+      <h1>Flow</h1>
+      <p class="subtitle">Everything Flows</p>
+    </a>
+    {% block content %}{% endblock %}
+    <p class="auth-whisper">慢慢写下今天</p>
+  </main>
+  <div id="toast" class="toast hidden"></div>
+  <script src="/static/js/common.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% set active = "dashboard" %}
+{% block title %}Flow · 数据可视化{% endblock %}
+
+{% block head %}
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <h2>成长轨迹</h2>
+  <p class="hint">长期积累，看见流动</p>
+</section>
+
+<section class="card">
+  <h3 class="chart-title">人生时间轴热度</h3>
+  <div id="life-heatmap" class="life-heatmap"></div>
+</section>
+
+<section class="card chart-card">
+  <h3 class="chart-title">心情变化</h3>
+  <div id="chart-mood" class="chart"></div>
+</section>
+
+<section class="card chart-card">
+  <h3 class="chart-title">睡眠时长</h3>
+  <div id="chart-sleep" class="chart"></div>
+</section>
+
+<section class="card chart-card">
+  <h3 class="chart-title">运动时间</h3>
+  <div id="chart-exercise" class="chart"></div>
+</section>
+
+<section class="card chart-card chart-optional">
+  <h3 class="chart-title">数值记录 <span class="unit">可选</span></h3>
+  <p class="hint chart-hint">体重、步数等自定义数值的长期变化</p>
+  <div id="chart-weight" class="chart"></div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/dashboard.js"></script>
+{% endblock %}

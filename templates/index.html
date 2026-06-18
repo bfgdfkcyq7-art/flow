@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% set active = "home" %}
+{% block title %}Flow · 今日记录{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <p class="today-date" id="display-date">{{ today }}</p>
+</section>
+
+<form id="record-form" class="card form-card">
+  <input type="hidden" id="record-id" value="" />
+
+  <div class="field">
+    <label>心情</label>
+    <div class="mood-picker" id="mood-picker">
+      {% for val, emoji in mood_map.items()|sort(reverse=True) %}
+      <button type="button" class="mood-btn" data-mood="{{ val }}" aria-label="心情 {{ val }}">{{ emoji }}</button>
+      {% endfor %}
+    </div>
+    <input type="hidden" id="mood" value="" />
+  </div>
+
+  <div class="field-row">
+    <div class="field">
+      <label for="sleep_hours">睡眠时长 <span class="unit">小时</span></label>
+      <input type="number" id="sleep_hours" step="0.1" min="0" max="24" placeholder="7.5" />
+    </div>
+    <div class="field">
+      <label for="exercise_minutes">运动时间 <span class="unit">分钟</span></label>
+      <input type="number" id="exercise_minutes" step="1" min="0" max="1440" placeholder="45" />
+    </div>
+  </div>
+
+  <div class="field">
+    <label>人生时间轴</label>
+    <p class="hint">今天主要落在哪些人生领域？</p>
+    <div class="chip-group" id="life-areas">
+      {% for area in life_areas %}
+      <button type="button" class="chip" data-area="{{ area }}">{{ area }}</button>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="keywords">今日关键词</label>
+    <input type="text" id="keywords" placeholder="毕业, 武汉, 拍立得, 水流" />
+    <p class="hint">多个关键词用逗号分隔</p>
+  </div>
+
+  <div class="field">
+    <label for="diary">一句话日记</label>
+    <textarea id="diary" rows="3" maxlength="200" placeholder="记录今天的一句话…"></textarea>
+    <p class="hint"><span id="diary-count">0</span> / 200</p>
+  </div>
+
+  <details class="optional-metric" id="metric-details">
+    <summary>今日数值（可选）</summary>
+    <div class="field metric-field">
+      <input type="number" id="weight" step="any" min="0.01" placeholder="如 65.5、8000、72…" />
+      <p class="hint">体重、步数、心率等，随你定义，不填也可以</p>
+    </div>
+  </details>
+
+  <button type="submit" class="btn-primary" id="save-btn">保存记录</button>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  window.FLOW_TODAY = "{{ today }}";
+</script>
+<script src="/static/js/index.js"></script>
+{% endblock %}

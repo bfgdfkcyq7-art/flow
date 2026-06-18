@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% set active = "history" %}
+{% block title %}Flow · 历史记录{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <h2>历史记录</h2>
+  <p class="hint">按日期倒序，支持编辑与删除</p>
+</section>
+
+<div id="history-list" class="history-list"></div>
+
+<dialog id="edit-dialog" class="edit-dialog">
+  <form method="dialog" id="edit-form" class="card form-card">
+    <h3>编辑记录</h3>
+    <input type="hidden" id="edit-id" />
+    <div class="field">
+      <label for="edit-date">日期</label>
+      <input type="date" id="edit-date" required />
+    </div>
+    <div class="field">
+      <label>心情</label>
+      <div class="mood-picker" id="edit-mood-picker">
+        {% for val, emoji in mood_map.items()|sort(reverse=True) %}
+        <button type="button" class="mood-btn" data-mood="{{ val }}">{{ emoji }}</button>
+        {% endfor %}
+      </div>
+      <input type="hidden" id="edit-mood" />
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="edit-sleep">睡眠 (小时)</label>
+        <input type="number" id="edit-sleep" step="0.1" min="0" max="24" />
+      </div>
+      <div class="field">
+        <label for="edit-exercise">运动 (分钟)</label>
+        <input type="number" id="edit-exercise" step="1" min="0" max="1440" />
+      </div>
+    </div>
+    <div class="field">
+      <label for="edit-weight">今日数值（可选）</label>
+      <input type="number" id="edit-weight" step="any" min="0.01" placeholder="体重、步数等" />
+    </div>
+    <div class="field">
+      <label>人生时间轴</label>
+      <div class="chip-group" id="edit-life-areas">
+        {% for area in life_areas %}
+        <button type="button" class="chip" data-area="{{ area }}">{{ area }}</button>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="field">
+      <label for="edit-keywords">关键词</label>
+      <input type="text" id="edit-keywords" />
+    </div>
+    <div class="field">
+      <label for="edit-diary">日记</label>
+      <textarea id="edit-diary" rows="3" maxlength="200"></textarea>
+    </div>
+    <div class="dialog-actions">
+      <button type="button" class="btn-secondary" id="edit-cancel">取消</button>
+      <button type="submit" class="btn-primary">保存</button>
+    </div>
+  </form>
+</dialog>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/history.js"></script>
+{% endblock %}
